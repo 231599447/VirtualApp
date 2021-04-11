@@ -794,6 +794,7 @@ public final class VClient extends IVClient.Stub {
             File wifiMacAddressFile = getDeviceConfig().getWifiFile(userId, is64bit);
             if (wifiMacAddressFile != null && wifiMacAddressFile.exists()) {
                 String wifiMacAddressPath = wifiMacAddressFile.getPath();
+                Log.d("xyh","wifiMacAddressPath : " + wifiMacAddressPath);
                 NativeEngine.redirectFile("/sys/class/net/wlan0/address", wifiMacAddressPath);
                 NativeEngine.redirectFile("/sys/class/net/eth0/address", wifiMacAddressPath);
                 NativeEngine.redirectFile("/sys/class/net/wifi/address", wifiMacAddressPath);
@@ -806,6 +807,8 @@ public final class VClient extends IVClient.Stub {
         NativeEngine.redirectDirectory("/tmp/", cache);
         // /data/data/{packageName}/ -> /data/data/va/.../data/user/{userId}/{packageName}/
         NativeEngine.redirectDirectory("/data/data/" + packageName, dataDir);
+        Log.d("xyh","redirectDirectory : " + "/data/data/" + packageName + " to " + dataDir);
+
         // /data/user/{userId}/{packageName}/ -> /data/data/va/.../data/user/{userId}/{packageName}/
         NativeEngine.redirectDirectory("/data/user/" + userId + "/" + packageName, dataDir);
         if(autoFixPath) {

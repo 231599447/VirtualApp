@@ -12,6 +12,7 @@ import android.os.Process;
 import com.lody.virtual.client.VClient;
 import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.helper.compat.BundleCompat;
+import com.lody.virtual.helper.utils.VLog;
 import com.lody.virtual.remote.ClientConfig;
 
 /**
@@ -34,6 +35,7 @@ public class ShadowContentProvider extends ContentProvider {
 	}
 
 	private Bundle initProcess(Bundle extras) {
+		VLog.d("ShadowContentProvider" , "initProcess start" );
 		VirtualCore.get().waitStartup();
 		extras.setClassLoader(ClientConfig.class.getClassLoader());
         ClientConfig clientConfig = extras.getParcelable("_VA_|_client_config_");
@@ -42,6 +44,7 @@ public class ShadowContentProvider extends ContentProvider {
 		Bundle res = new Bundle();
 		BundleCompat.putBinder(res, "_VA_|_client_", client.asBinder());
 		res.putInt("_VA_|_pid_", Process.myPid());
+		VLog.d("ShadowContentProvider" , "initProcess end" );
 		return res;
 	}
 

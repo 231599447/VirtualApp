@@ -43,6 +43,7 @@ import android.webkit.MimeTypeMap;
 import com.lody.virtual.client.NativeEngine;
 import com.lody.virtual.client.VClient;
 import com.lody.virtual.client.badger.BadgerManager;
+import com.lody.virtual.client.core.InvocationStubManager;
 import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.client.env.Constants;
 import com.lody.virtual.client.env.SpecialComponentList;
@@ -113,7 +114,6 @@ import android.widget.Toast;
  */
 @SuppressWarnings("unused")
 class MethodProxies {
-
     static class FinishReceiver extends MethodProxy {
         @Override
         public String getMethodName() {
@@ -1900,7 +1900,10 @@ class MethodProxies {
 
 
     static class GetContentProvider extends MethodProxy {
-
+        GetContentProvider(){
+            //被自动注入 @Inject(MethodProxies.class)
+//            VLog.printStackTrace("vlog");
+        }
         @Override
         public String getMethodName() {
             return "getContentProvider";
@@ -1910,11 +1913,13 @@ class MethodProxies {
         public Object call(Object who, Method method, Object... args) throws Throwable {
             int nameIdx = getProviderNameIndex();
             String name = (String) args[nameIdx];
+//            VLog.printStackTrace("Vlog");
 
             if ((name.startsWith(StubManifest.STUB_CP_AUTHORITY)
                     || name.startsWith(StubManifest.STUB_CP_AUTHORITY_64BIT)
                     || name.equals(getConfig().get64bitHelperAuthority()))
                     || name.equals(getConfig().getBinderProviderAuthority())) {
+                VLog.w("VActivityManger", name + "getContentProvider return method.invoke(who, args).");
                 return method.invoke(who, args);
             }
             if (BuildCompat.isQ()) {
@@ -1966,6 +1971,8 @@ class MethodProxies {
                     IActivityManager.ContentProviderHolder.provider.set(holder, provider);
                     IActivityManager.ContentProviderHolder.info.set(holder, info);
                 }
+                VLog.d("GetContentProvider","getContentProvider " + name + "return holder : " + holder);
+
                 return holder;
             }
             VLog.w("VActivityManger", "getContentProvider:%s", name);

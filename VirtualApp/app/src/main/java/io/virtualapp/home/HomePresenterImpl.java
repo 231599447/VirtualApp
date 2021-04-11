@@ -13,6 +13,7 @@ import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.client.ipc.VActivityManager;
 import com.lody.virtual.client.ipc.VPackageManager;
 import com.lody.virtual.helper.compat.PermissionCompat;
+import com.lody.virtual.helper.utils.VLog;
 import com.lody.virtual.open.MultiAppHelper;
 import com.lody.virtual.remote.InstallResult;
 import com.lody.virtual.remote.InstalledAppInfo;
@@ -119,15 +120,15 @@ class HomePresenterImpl implements HomeContract.HomePresenter {
             }
         }
         long lastTime = VActivityManager.get().getLastBackHomeTime();
-        Log.e("kk-test", "getLastBackHomeTime="+lastTime);
+        VLog.e("kk-test", "getLastBackHomeTime="+lastTime);
         long time = System.currentTimeMillis() - lastTime;
         if (lastTime > 0 && time <= 6000 && "com.xdja.HDSafeEMailClient".equals(packageName)) {
-            Log.e("kk-test", "stat app delay "+time);
+            VLog.e("kk-test", "stat app delay "+time);
             VUiKit.postDelayed(Math.max(2000, time), () -> {
                 VActivityManager.get().launchApp(userId, packageName);
             });
         } else {
-            Log.e("kk-test", "stat app");
+            VLog.e("kk-test", "stat app");
             VActivityManager.get().launchApp(userId, packageName);
         }
     }

@@ -7,6 +7,7 @@ import android.os.Parcelable;
 
 import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.helper.compat.ContentProviderCompat;
+import com.lody.virtual.server.pm.VPackageManagerService;
 
 import java.io.Serializable;
 
@@ -82,7 +83,6 @@ public class ProviderCall {
             this.retryCount = retryCount;
             return this;
         }
-
         public Bundle call() throws IllegalAccessException {
             return ProviderCall.call(auth, context, method, arg, bundle, retryCount);
         }

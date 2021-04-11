@@ -4,9 +4,21 @@
 #include "canonicalize_md.h"
 #include "Log.h"
 
+/**
+ * 保持不变的文件，不能改变
+ */
 PathItem *keep_items;
+/**
+ * 禁止访问的文件
+ */
 PathItem *forbidden_items;
+/**
+ * 只读文件
+ */
 PathItem *readonly_items;
+/*
+ * 替换的文件
+ */
 ReplaceItem *replace_items;
 int keep_item_count;
 int forbidden_item_count;
@@ -127,6 +139,13 @@ bool isReadOnly(const char *path) {
     return false;
 }
 
+/**
+ * 返回替换后的新路径，可能被禁止访问，可能替换新的文件
+ * @param path
+ * @param buffer
+ * @param size
+ * @return
+ */
 const char *relocate_path_internal(const char *path, char *const buffer, const size_t size) {
     if (NULL == path) {
         return path;
@@ -186,6 +205,13 @@ const char *relocate_path(const char *path, char *const buffer, const size_t siz
     return result;
 }
 
+/**
+ * 释放替换的路径
+ * @param path
+ * @param buffer
+ * @param size
+ * @return
+ */
 const char *reverse_relocate_path(const char *path, char *const buffer, const size_t size) {
     if (path == NULL) {
         return NULL;

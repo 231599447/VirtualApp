@@ -423,6 +423,7 @@ public class VActivityManagerService extends IActivityManager.Stub {
 
 
     private boolean attachClient(final ProcessRecord app, final IBinder clientBinder) {
+        VLog.d(TAG,"attachClient : " + app);
         IVClient client = IVClient.Stub.asInterface(clientBinder);
         if (client == null) {
             app.kill();
@@ -664,6 +665,7 @@ public class VActivityManagerService extends IActivityManager.Stub {
             //仅仅只是传递ClientConfig，还不需要用到权限
             Bundle extras = new Bundle();
             extras.putParcelable("_VA_|_client_config_", app.getClientConfig());
+            //这里创建了进程
             Bundle res = ProviderCall.callSafely(app.getProviderAuthority(), "_VA_|_init_process_", null, extras);
             if (res == null) {
                 return false;

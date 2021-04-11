@@ -16,6 +16,9 @@ android {
             buildConfigField 'String', 'commit', '"000000"'
         }
 
+        buildConfigField 'int', 'VERSION_CODE', ''+rootProject.ext.VERSION_CODE
+
+
         manifestPlaceholders = [
                 PERMISSION_PREFIX:  rootProject.ext.PACKAGE_NAME_32BIT,
                 AUTHORITY_PREFIX :  rootProject.ext.PACKAGE_NAME_32BIT,

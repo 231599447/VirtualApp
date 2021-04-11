@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.lody.virtual.client.NativeEngine;
 import com.lody.virtual.client.core.AppCallback;
+import com.lody.virtual.client.core.InvocationStubManager;
 import com.lody.virtual.helper.compat.BuildCompat;
+import com.lody.virtual.server.BinderProvider;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

@@ -10,6 +10,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.ServiceInfo;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileObserver;
@@ -320,6 +321,7 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
+        Log.d("xyh","VirtualApp UID = " + Binder.getCallingUid());
         gApp = this;
         super.onCreate();
         VirtualCore virtualCore = VirtualCore.get();

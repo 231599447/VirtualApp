@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.client.ipc.ServiceManagerNative;
@@ -38,7 +39,6 @@ import com.lody.virtual.server.vs.VirtualStorageService;
 
 import com.xdja.activitycounter.ActivityCounterService;
 import com.xdja.zs.InstallerSettingService;
-import com.xdja.zs.VSafekeyManagerService;
 import com.xdja.zs.VServiceKeepAliveService;
 import com.xdja.zs.VWaterMarkService;
 import com.xdja.zs.controllerService;
@@ -123,8 +123,9 @@ public final class BinderProvider extends ContentProvider {
         addService(ServiceManagerNative.VIRTUAL_LOC, VirtualLocationService.get());
 
         /* Start Changed by XDJA */
-        VSafekeyManagerService.systemReady(context);
-        addService(ServiceManagerNative.SAFEKEY, VSafekeyManagerService.get());
+        Log.e("xyh","close VSafekeyManagerService");
+//        VSafekeyManagerService.systemReady(context);
+//        addService(ServiceManagerNative.SAFEKEY, VSafekeyManagerService.get());
         addService(ServiceManagerNative.CONTROLLER, controllerService.get());
         VAppPermissionManagerService.systemReady();
         addService(ServiceManagerNative.APPPERMISSION, VAppPermissionManagerService.get());

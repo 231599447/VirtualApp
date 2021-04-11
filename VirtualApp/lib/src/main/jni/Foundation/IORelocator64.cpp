@@ -1921,7 +1921,10 @@ void startIOHook(int api_level) {
     void *handle = dlopen("libc.so", RTLD_NOW);
 
     if (handle) {
+//        #define HOOK_SYMBOL(handle, func) hook_function(handle, #func, (void*) new_##func, (void**) &orig_##func)
+//        hook_function(handle, "fchownat", (void *) new_fchownat, (void **) &orig_fchownat)
         HOOK_SYMBOL(handle, fchownat);
+//        hook_function(handle, "renameat", (void *) new_renameat, (void **) &orig_renameat)
         HOOK_SYMBOL(handle, renameat);
         HOOK_SYMBOL(handle, mkdirat);
         HOOK_SYMBOL(handle, mknodat);

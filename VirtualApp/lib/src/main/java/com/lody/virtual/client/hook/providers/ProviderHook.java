@@ -166,6 +166,10 @@ public class ProviderHook implements InvocationHandler {
             e.printStackTrace();
         }
         MethodBox methodBox = new MethodBox(method, mBase, args);
+        if(true){//参考issue
+            Log.e("xyh","change by xyh ProviderHook invoke");
+            return methodBox.call();
+        }
         int start = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2 ? 1 : 0;
         try {
             String name = method.getName();

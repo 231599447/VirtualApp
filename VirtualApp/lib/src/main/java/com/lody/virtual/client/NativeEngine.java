@@ -6,6 +6,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Process;
 import android.support.annotation.Keep;
+import android.util.Log;
 import android.util.Pair;
 
 import com.lody.virtual.client.core.VirtualCore;
@@ -45,6 +46,7 @@ public class NativeEngine {
     private static final String LIB_NAME_64 = "v++_64";
 
     static {
+        Log.d("xyh","NativeEngine static load !");
         try {
             if (VirtualRuntime.is64bit()) {
                 System.loadLibrary(LIB_NAME_64);
@@ -292,6 +294,7 @@ public class NativeEngine {
     }
 
     public static int onGetCallingUid(int originUid) {
+//        Log.d("xyh","onGetCallingUid : " + originUid);
         if (!VClient.get().isAppRunning()) {
             return originUid;
         }

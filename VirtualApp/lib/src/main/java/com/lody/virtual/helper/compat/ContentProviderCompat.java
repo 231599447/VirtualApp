@@ -25,6 +25,7 @@ public class ContentProviderCompat {
             }
             return client.call(method, arg, extras);
         } catch (RemoteException e) {
+            e.printStackTrace();
             throw new IllegalAccessException(e.getMessage());
         } finally {
             releaseQuietly(client);
