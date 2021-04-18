@@ -13,6 +13,7 @@ import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,10 +31,12 @@ class MainActivity : AppCompatActivity() {
         val sdDir = Environment.getExternalStorageDirectory();//获取跟目录
         logd("onCreate sdDir: $sdDir")
 
+        val dataFile = File("/data/data/"+packageName+"/test.data");
         //无法访问
         try {
-            val dataFile = File("/data/data/"+packageName+"/test.data");
             dataFile.createNewFile()
+            FileIOUtils.writeFileFromString(dataFile,"file context!!");
+            logd("dataFile : " + FileIOUtils.readFile2String(dataFile))
         }catch (e:Exception){
 
         }
@@ -53,10 +56,15 @@ class MainActivity : AppCompatActivity() {
         editor.putLong("l",100L)
         editor.apply()
 
+        logd("jni:"+stringFromJNI())
     }
 
+    init {
+        System.loadLibrary("location")
+    }
+    external fun stringFromJNI(): String
 
     fun logd(msg: String){
-        Log.d("xyh", msg)
+        Log.d("Vlog", msg)
     }
 }
